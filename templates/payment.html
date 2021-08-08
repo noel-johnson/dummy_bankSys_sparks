@@ -1,0 +1,63 @@
+{% extends 'base.html' %} {% set active_page = "view_all" %} {%block head %}
+<title>Payment System of {{user.name}}</title>
+{% endblock %} {% block content %} {% if context %}
+
+<div class="d-flex justify-content-center">
+  <p class="text-danger fs-1">{{context}} ❌</p>
+</div>
+
+{% else %}
+<div class="add-form">
+  <form class="needs-validation mt-5" novalidate="" method="POST">
+    <h2 class="h3">{{user.name}}&apos;s</h2>
+    <h2 class="h4 mb-3">Current Balance: {{user.current_balance}}</h2>
+    <input
+      type="number"
+      name="balance"
+      id="balance"
+      style="display: none"
+      value="{{user.current_balance}}"
+    />
+    <div class="row g-3">
+      <div class="">
+        <label for="customer" class="form-label">Customer</label>
+        <select
+          class="form-select"
+          id="customer"
+          name="customer"
+          required="true"
+        >
+          <option value="">Choose...</option>
+          {% for customer in customers %}
+          <option value="{{customer.id}}">{{customer.name}}</option>
+          {% endfor %}
+        </select>
+        <div class="invalid-feedback">Please select a valid Customer.</div>
+      </div>
+
+      <div>
+        <label for="amount" class="form-label">Amount</label>
+        <input
+          type="number"
+          min="100"
+          max="{{user.current_balance}}"
+          class="form-control"
+          id="amount"
+          name="amount"
+          placeholder=""
+          required="true"
+        />
+        <div class="invalid-feedback">
+          Enter a valid amount &lpar;min: 100, max:
+          {{user.current_balance-100}}&rpar;
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <button class="mt-5 w-10 btn btn-primary btn-lg" type="submit">
+        Tranfer Money
+      </button>
+    </div>
+  </form>
+</div>
+{% endif %} {% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% set active_page = "transactions" %} {%block head %}
+<title>All Transactions</title>
+{% endblock %} {% block content %} {% if transactions| length >1 %}
+
+<table class="table table-striped table-sm mt-5">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Sender_id</th>
+      <th scope="col">Receiver_id</th>
+      <th scope="col">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for transaction in transactions %}
+    <tr>
+      <th>{{transaction.id}}</th>
+      <td>{{transaction.sender_id}}</td>
+      <td>{{transaction.receiver_id}}</td>
+      <td>{{transaction.amount}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="d-flex justify-content-center">
+  <p class="text-muted fs-1">No records 👀</p>
+</div>
+{% endif %} {% endblock %}

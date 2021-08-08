@@ -1,0 +1,55 @@
+{% set navigation_bar = [
+  (url_for('index'), 'index', 'Home'),
+  (url_for('view_all'), 'view_all', 'View All Customers'),
+  (url_for('transactions'), 'transactions', 'Transactions')
+] -%}
+{% set active_page = active_page|default('index') -%}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block head %}{% endblock %}
+
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='css/bootstrap.min.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='css/main.css')}}"
+    />
+  </head>
+  <body>
+      <header class=" shadow p-3 mb-5  rounded">
+        <div class="container d-flex justify-content-center ">
+          <ul class="nav nav-pills">
+            {% for href, id, caption in navigation_bar %}
+        <li class="nav-item">
+          <a {% if id == active_page %} 
+            aria-current="page" class="nav-link active" 
+            {% else %} 
+            class="nav-link"
+           {% endif%} 
+           href="{{ href|e }}">
+           {{ caption|e }}</a>
+      </li>
+  {% endfor %}
+            
+          </ul>
+        </div>
+      </header>
+    <div class="container">
+      <main>{% block content %}{% endblock %}</main>
+      <footer class="text-center">
+        <p class="mt-3 text-muted">&copy; Noel 2021</p>
+      </footer>
+    </div>
+
+    <script
+      src="{{url_for('static',filename='js/form-validation.js')}}"
+    ></script>
+  </body>
+</html>

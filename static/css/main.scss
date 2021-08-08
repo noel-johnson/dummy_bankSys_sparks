@@ -1,0 +1,27 @@
+body {
+  background-color: #fafafa;
+}
+header {
+  background-color: white;
+}
+.home-content {
+  display: grid;
+  place-content: center;
+  height: 80vh;
+}
+.name {
+  text-transform: capitalize;
+}
+
+.add-form {
+  width: 100%;
+  max-width: 350px;
+  padding: 15px;
+  margin: auto;
+  .form-floating:focus-within {
+    z-index: 2;
+  }
+  input {
+    margin-bottom: 10px;
+  }
+}
